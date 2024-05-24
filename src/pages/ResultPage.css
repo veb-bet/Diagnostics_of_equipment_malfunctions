@@ -1,0 +1,82 @@
+/* ResultPage.css */
+.result-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.result-content {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+ul {
+  font-size: large;
+}
+
+li {
+  margin-top: 20px;
+}
+
+.result-graph {
+  max-width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.recommendation {
+  flex: 1;
+  margin-left: 30px;
+}
+
+.recommendation h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.recommendation p {
+  color: #555;
+  font-size: 1.5em;
+}
+
+.buttons-section {
+  text-align: center;
+}
+
+.download-button,
+.view-history-button {
+  padding: 15px 25px;
+  font-size: 1.2em;
+  margin: 0 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.download-button:hover,
+.view-history-button:hover {
+  background-color: #45a049;
+}
+
+a {
+  text-decoration: none;
+}

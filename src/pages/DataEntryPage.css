@@ -1,0 +1,156 @@
+/* DataEntryPage.css */
+.data-entry-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.json-upload-form {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.json-upload-form label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.json-upload-form input {
+  width: 40%;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+.tables-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-table {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 80px;
+  gap: 20px;
+}
+
+.table-data {
+  max-width: 500px;
+}
+
+.table-description {
+  text-align: left;
+  font-size: 1.2em;
+  font-style: oblique;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.add-row {
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.add-row:hover {
+  background-color: #45a049;
+}
+
+.build-button {
+  margin: auto;
+  padding: 12px 20px;
+  font-size: 1.2em;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.build-button:hover {
+  background-color: #45a049;
+}
+
+.matrices-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 100px;
+  margin-bottom: 60px;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.styled-table th,
+.styled-table td {
+  text-align: center;
+}
+
+.styled-table th {
+  background-color: #f2f2f2;
+}
+
+.styled-table thead {
+  width: 50px;
+}
+
+.styled-table td input.cell-input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  width: 50%;
+  height: 100%;
+  font-size: 1em;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.description-parameters {
+  margin-bottom: 60px;
+}
+
+.description-matrices {
+  margin-bottom: 60px;
+}
