@@ -10,17 +10,39 @@
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 3px;
 }
 
 header h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
 }
+.equipment-management {
+  margin-bottom: 20px;
+}
+.option-container {
+  margin-bottom: 30px;
+}
+.option-container label {
+  margin-right: 10rem;
+}
+
+.option-container label:not(:last-child) {
+  margin-right: 7rem;
+}
+
+h2 {
+  font-size: 1.9em;
+  margin-bottom: 30px;
+}
 
 header p {
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #666;
+}
+
+p {
+  font-size: 1.1em;
 }
 
 .json-upload-form {
@@ -66,7 +88,16 @@ header p {
   font-size: 1.2em;
   font-style: oblique;
 }
-
+.table-data input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
 select {
   width: 100%;
   padding: 12px;
@@ -110,9 +141,8 @@ select {
 
 .matrices-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 100px;
   margin-bottom: 60px;
 }
 
@@ -148,7 +178,7 @@ select {
 }
 
 .description-parameters {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 .description-matrices {

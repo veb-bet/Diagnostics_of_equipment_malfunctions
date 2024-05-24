@@ -113,7 +113,7 @@ const DataEntryPage = () => {
       setDiagnosticFeatures2(diagnosticFeatures2.filter((_, i) => i !== index));
     }
     if (table === "table3") {
-      setDiagnosticFeatures3(diagnosticFeatures2.filter((_, i) => i !== index));
+      setDiagnosticFeatures3(diagnosticFeatures3.filter((_, i) => i !== index));
     }
   };
   const handleRemoveRowMatrix = (rowIndex, matrix) => {
@@ -144,6 +144,29 @@ const DataEntryPage = () => {
       setMatrix2(updatedMatrix2);
     }
   };
+  const [selectedOption, setSelectedOption] = useState("create-new");
+  const [equipmentName, setEquipmentName] = useState("");
+  const [existingEquipment, setExistingEquipment] = useState([
+    { id: 1, name: "Оборудование 1" },
+    { id: 2, name: "Оборудование 2" },
+    { id: 3, name: "Оборудование 3" },
+  ]);
+  const [selectedEquipment, setSelectedEquipment] = useState(null);
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  const handleEquipmentNameChange = (e) => {
+    setEquipmentName(e.target.value);
+  };
+
+  const handleExistingEquipmentChange = (e) => {
+    setSelectedEquipment(
+      existingEquipment.find((eq) => eq.id === parseInt(e.target.value))
+    );
+  };
+
   return (
     <div className="data-entry-container">
       <header>
@@ -153,7 +176,6 @@ const DataEntryPage = () => {
           матрицах.
         </p>
       </header>
-
       <div className="description-parameters">
         <h1>Описание секции параметров</h1>
         <p>
@@ -161,6 +183,92 @@ const DataEntryPage = () => {
           признаках и матрицах. Эти данные будут использованы для дальнейшего
           анализа и построения системы обнаружения сбоев.
         </p>
+      </div>
+      <div className="equipment-management">
+        <h2>Управление оборудованием</h2>
+        <div className="option-container">
+          <label>
+            <input
+              type="radio"
+              name="option"
+              value="create-new"
+              checked={selectedOption === "create-new"}
+              onChange={handleOptionChange}
+            />
+            Cоздать новое оборудование
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="option"
+              value="create-copy"
+              checked={selectedOption === "create-copy"}
+              onChange={handleOptionChange}
+            />
+            Cоздать копию существующего оборудования
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="option"
+              value="modify-existing"
+              checked={selectedOption === "modify-existing"}
+              onChange={handleOptionChange}
+            />
+            Изменить существующее оборудование
+          </label>
+        </div>
+
+        <div>
+          {selectedOption === "create-new" && (
+            <div>
+              <label>Название оборудования:</label>
+              <input
+                type="text"
+                value={equipmentName}
+                onChange={handleEquipmentNameChange}
+              />
+            </div>
+          )}
+          {selectedOption === "create-copy" && (
+            <div>
+              <label>Существующее оборудование:</label>
+              <select
+                value={selectedEquipment?.id}
+                onChange={handleExistingEquipmentChange}
+              >
+                <option value="">Выбор оборудования</option>
+                {existingEquipment.map((eq) => (
+                  <option key={eq.id} value={eq.id}>
+                    {eq.name}
+                  </option>
+                ))}
+              </select>
+              <label>Новое имя оборудования:</label>
+              <input
+                type="text"
+                value={equipmentName}
+                onChange={handleEquipmentNameChange}
+              />
+            </div>
+          )}
+          {selectedOption === "modify-existing" && (
+            <div>
+              <label>Существующее оборудование:</label>
+              <select
+                value={selectedEquipment?.id}
+                onChange={handleExistingEquipmentChange}
+              >
+                <option value="">Выбор оборудования</option>
+                {existingEquipment.map((eq) => (
+                  <option key={eq.id} value={eq.id}>
+                    {eq.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="tables-section">
@@ -175,7 +283,7 @@ const DataEntryPage = () => {
             <thead>
               <tr>
                 <th>F</th>
-                <th>Тип сбоя</th>
+                <th>Вид отказа</th>
                 <th>Действие</th>
               </tr>
             </thead>
@@ -227,7 +335,7 @@ const DataEntryPage = () => {
             <thead>
               <tr>
                 <th>RC</th>
-                <th>Причина сбоя</th>
+                <th>Причина отказа</th>
                 <th>Действие</th>
               </tr>
             </thead>
