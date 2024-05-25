@@ -30,7 +30,6 @@ const Graph = () => {
       ]);
     };
 
-    // Обработка картинки P1
     const P1 = ["F1", "F2", "F3"];
     P1.forEach((node, index) => {
       addNode(node, { x: index * 150, y: 50 });
@@ -39,7 +38,6 @@ const Graph = () => {
     addEdgesBetween("F2", "F3");
     addEdgesBetween("F1", "F3");
 
-    // Обработка картинки P2
     const P2 = ["F4", "F5", "F6", "F7"];
     P2.forEach((node, index) => {
       addNode(node, { x: index * 150, y: 200 });
@@ -51,7 +49,6 @@ const Graph = () => {
     addEdgesBetween("F5", "F7");
     addEdgesBetween("F2", "F6");
 
-    // Обработка картинки P3
     const P3 = ["F8", "F9", "F10", "F11", "F12"];
     P3.forEach((node, index) => {
       addNode(node, { x: index * 150, y: 350 });
@@ -64,7 +61,6 @@ const Graph = () => {
     addEdgesBetween("F9", "F11");
     addEdgesBetween("F2", "F9");
 
-    // Добавление дополнительных узлов
     addNode("S1", { x: 50, y: 500 });
     addNode("S2", { x: 250, y: 500 });
     addNode("S3", { x: 450, y: 500 });
@@ -84,7 +80,6 @@ const Graph = () => {
       nodes,
       edges,
       recommendation: {
-        // Добавьте любую другую информацию, которую вы хотите включить в файл
         replacePulleys: "Необходимо заменить изношенные валки",
         checkBeltConveyor: "Необходимо проверить и исправить ленту прокатки",
         investigateEngineOverheating: "Изучить причины перегрева двигателя",

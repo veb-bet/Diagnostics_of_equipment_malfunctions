@@ -17,8 +17,6 @@ const RegistrationPage = () => {
   const handleEmailChange = (e) => {
     const { value } = e.target;
     setEmail(value);
-
-    // Validate the email format
     if (!validateEmail(value)) {
       setEmailError("Пожалуйста, введите действительный email-адрес.");
     } else if (!hasValidTLD(value)) {
@@ -40,19 +38,16 @@ const RegistrationPage = () => {
   };
 
   const validateEmail = (email) => {
-    // Regular expression to validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const hasValidTLD = (email) => {
-    // Check if the email address has a valid top-level domain (.ru, .com, or .edu)
     const tldRegex = /(\.ru|\.com|\.edu)$/;
     return tldRegex.test(email);
   };
 
   const getSuggestedTLD = (email) => {
-    // Determine the suggested TLD based on the email address
     if (email.includes("@")) {
       const [, domain] = email.split("@");
       if (domain.endsWith(".ru")) {
@@ -63,19 +58,15 @@ const RegistrationPage = () => {
         return ".edu";
       }
     }
-    return ".ru"; // Default suggestion
+    return ".ru";
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Perform registration logic here
     console.log("Username:", username);
     console.log("Email:", email);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
-
-    // Navigate to the MainPage component
     navigate("/");
   };
 

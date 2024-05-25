@@ -2,26 +2,26 @@
 import React, { useState, useEffect } from "react";
 import "./DataEntryPage.css";
 const DataEntryPage = () => {
-  const [diagnosticFeatures, setDiagnosticFeatures] = useState([
-    { id: 1, feature: "" },
+  const [diagnosticFeatures0, setDiagnosticFeatures0] = useState([
+    { id: 0, feature: "" },
     // Добавьте другие начальные типы сбоев, если нужно
   ]);
-  const [diagnosticFeatures2, setDiagnosticFeatures2] = useState([
-    { id: 1, feature: "" },
+  const [diagnosticFeatures1, setDiagnosticFeatures1] = useState([
+    { id: 0, feature: "" },
     // Добавьте другие начальные причины сбоев, если нужно
   ]);
-  const [diagnosticFeatures3, setDiagnosticFeatures3] = useState([
-    { id: 1, feature: "" },
+  const [diagnosticFeatures2, setDiagnosticFeatures2] = useState([
+    { id: 0, feature: "" },
     // Добавьте другие начальные диагностические признаки, если нужно
   ]);
-  const diagnosticOptions = [
+  const diagnosticOptions0 = [
     "Аномальное напряжение",
     "Неравномерный ток",
     "Отклонение от нормы",
     "Неисправность датчика",
     "Неправильная настройка",
     "Нестабильная работа",
-    // Добавьте другие варианты диагностических признаков, если нужно
+    // Добавьте другие варианты, если нужно
   ];
   const diagnosticOptions1 = [
     "Электрический сбой",
@@ -30,7 +30,7 @@ const DataEntryPage = () => {
     "Проблемы с охлаждением",
     "Вибрация",
     "Неправильное напряжение",
-    // Добавьте другие варианты типов сбоев, если нужно
+    // Добавьте другие варианты, если нужно
   ];
   const diagnosticOptions2 = [
     "Перегрев",
@@ -39,111 +39,172 @@ const DataEntryPage = () => {
     "Нестабильный ток",
     "Повышенное энергопотребление",
     "Неправильная конфигурация",
-    // Добавьте другие варианты причин сбоев, если нужно
+    // Добавьте другие варианты, если нужно
   ];
+  const [matrix0, setMatrix0] = useState([[0]]);
   const [matrix1, setMatrix1] = useState([[0]]);
   const [matrix2, setMatrix2] = useState([[0]]);
-  const handleFeatureChange = (index, newFeature) => {
-    setDiagnosticFeatures((prevFeatures) => {
-      const updatedFeatures = [...prevFeatures];
-      updatedFeatures[index].feature = newFeature;
+
+  const handleAddRow0 = () => {
+    setDiagnosticFeatures0((prevFeatures) => [
+      ...prevFeatures,
+      { id: prevFeatures.length, feature: "" },
+    ]);
+    const updatedMatrix0 = [
+      ...matrix0,
+      new Array(matrix0[0].length).fill(0),
+    ].map((row) => [...row, 0]);
+    setMatrix0(updatedMatrix0);
+    // add column to matrix1
+    const updatedColMatrix1 = matrix1.map((row) => [...row, 0]);
+    setMatrix1(updatedColMatrix1);
+    // add column to matrix2
+    const updatedColMatrix2 = matrix2.map((row) => [...row, 0]);
+    setMatrix2(updatedColMatrix2);
+  };
+
+  const handleFeatureChange0 = (id, newFeature) => {
+    setDiagnosticFeatures0((prevFeatures) => {
+      const updatedFeatures = prevFeatures.map((feature) =>
+        feature.id === id ? { ...feature, feature: newFeature } : feature
+      );
       return updatedFeatures;
     });
   };
-  const handleAddRow = () => {
-    setDiagnosticFeatures((prevFeatures) => [
+  const handleRemoveF = (index) => {
+    if (matrix0.length > 1) {
+      setDiagnosticFeatures0((prevDiagnosticFeatures0) => {
+        const updatedFeatures = prevDiagnosticFeatures0.filter(
+          (_, i) => i !== index
+        );
+        return updatedFeatures.map((feature, i) => ({
+          id: i,
+          feature: feature.feature,
+        }));
+      });
+
+      setMatrix0((prevMatrix0) => {
+        const updatedMatrixF = prevMatrix0.map((row) => {
+          const updatedRow = [...row];
+          updatedRow.splice(index, 1);
+          return updatedRow;
+        });
+        updatedMatrixF.splice(index, 1);
+        return updatedMatrixF;
+      });
+
+      setMatrix1((prevMatrix1) => {
+        const updatedMatrix1 = prevMatrix1.map((row) => {
+          const updatedRow = [...row];
+          updatedRow.splice(index, 1);
+          return updatedRow;
+        });
+        return updatedMatrix1;
+      });
+
+      setMatrix2((prevMatrix2) => {
+        const updatedMatrix2 = prevMatrix2.map((row) => {
+          const updatedRow = [...row];
+          updatedRow.splice(index, 1);
+          return updatedRow;
+        });
+        return updatedMatrix2;
+      });
+    }
+  };
+
+  const handleAddRow1 = () => {
+    setDiagnosticFeatures1((prevFeatures) => [
       ...prevFeatures,
-      { id: prevFeatures.length + 1, feature: "" },
+      { id: prevFeatures.length, feature: "" },
     ]);
-    // Update the matrix
-    const updatedMatrix1 = matrix1.map((row) => [...row, 0]);
+    const updatedMatrix1 = [...matrix1, new Array(matrix1[0].length).fill(0)];
     setMatrix1(updatedMatrix1);
-    // Update the matrix
-    const updatedMatrix2 = matrix2.map((row) => [...row, 0]);
+  };
+
+  const handleFeatureChange1 = (id, newFeature) => {
+    setDiagnosticFeatures1((prevFeatures) => {
+      const updatedFeatures = prevFeatures.map((feature) =>
+        feature.id === id ? { ...feature, feature: newFeature } : feature
+      );
+      return updatedFeatures;
+    });
+  };
+
+  const handleRemoveRC = (index) => {
+    if (matrix1.length > 1) {
+      setDiagnosticFeatures1((prevDiagnosticFeatures1) => {
+        const updatedDiagnosticFeatures1 = prevDiagnosticFeatures1.filter(
+          (_, i) => i !== index
+        );
+        return updatedDiagnosticFeatures1.map((feature, i) => ({
+          ...feature,
+          id: i,
+        }));
+      });
+
+      setMatrix1((prevMatrix1) => {
+        const updatedMatrixRC = prevMatrix1.filter((_, i) => i !== index);
+        return updatedMatrixRC;
+      });
+    }
+  };
+
+  const handleAddRow2 = () => {
+    setDiagnosticFeatures2((prevFeatures) => [
+      ...prevFeatures,
+      { id: prevFeatures.length, feature: "" },
+    ]);
+    const updatedMatrix2 = [...matrix2, new Array(matrix2[0].length).fill(0)];
     setMatrix2(updatedMatrix2);
   };
+
+  const handleFeatureChange2 = (id, newFeature) => {
+    setDiagnosticFeatures2((prevFeatures) => {
+      const updatedFeatures = prevFeatures.map((feature) =>
+        feature.id === id ? { ...feature, feature: newFeature } : feature
+      );
+      return updatedFeatures;
+    });
+  };
+
+  const handleRemoveS = (index) => {
+    if (matrix2.length > 1) {
+      setDiagnosticFeatures2((prevDiagnosticFeatures2) => {
+        const updatedDiagnosticFeatures2 = prevDiagnosticFeatures2.filter(
+          (_, i) => i !== index
+        );
+        return updatedDiagnosticFeatures2.map((feature, i) => ({
+          ...feature,
+          id: i,
+        }));
+      });
+
+      setMatrix2((prevMatrix2) => {
+        const updatedMatrixS = prevMatrix2.filter((_, i) => i !== index);
+        return updatedMatrixS;
+      });
+    }
+  };
+
   const handleFeatureChangeMatrix = (rowIndex, columnIndex, value, matrix) => {
+    if (matrix === "matrix0") {
+      const updatedMatrix0 = [...matrix0];
+      updatedMatrix0[rowIndex][columnIndex] = value;
+      setMatrix0(updatedMatrix0);
+    }
     if (matrix === "matrix1") {
       const updatedMatrix1 = [...matrix1];
       updatedMatrix1[rowIndex][columnIndex] = value;
       setMatrix1(updatedMatrix1);
-    } else {
+    }
+    if (matrix === "matrix2") {
       const updatedMatrix2 = [...matrix2];
       updatedMatrix2[rowIndex][columnIndex] = value;
       setMatrix2(updatedMatrix2);
     }
   };
-  const handleAddRow2 = () => {
-    setDiagnosticFeatures2((prevFeatures) => [
-      ...prevFeatures,
-      { id: prevFeatures.length + 1, feature: "" },
-    ]);
-    // Update the matrix
-    const updatedMatrix1 = [...matrix1, new Array(matrix1[0].length).fill(0)];
-    setMatrix1(updatedMatrix1);
-  };
-  const handleFeatureChange2 = (index, newFeature) => {
-    setDiagnosticFeatures2((prevFeatures) => {
-      const updatedFeatures = [...prevFeatures];
-      updatedFeatures[index].feature = newFeature;
-      return updatedFeatures;
-    });
-  };
-  const handleAddRow3 = () => {
-    setDiagnosticFeatures3((prevFeatures) => [
-      ...prevFeatures,
-      { id: prevFeatures.length + 1, feature: "" },
-    ]);
-    // Update the matrix
-    const updatedMatrix2 = [...matrix2, new Array(matrix2[0].length).fill(0)];
-    setMatrix2(updatedMatrix2);
-  };
-  const handleFeatureChange3 = (index, newFeature) => {
-    setDiagnosticFeatures3((prevFeatures) => {
-      const updatedFeatures = [...prevFeatures];
-      updatedFeatures[index].feature = newFeature;
-      return updatedFeatures;
-    });
-  };
-  const handleRemoveRow = (index, table) => {
-    if (table === "table1") {
-      setDiagnosticFeatures(diagnosticFeatures.filter((_, i) => i !== index));
-    }
-    if (table === "table2") {
-      setDiagnosticFeatures2(diagnosticFeatures2.filter((_, i) => i !== index));
-    }
-    if (table === "table3") {
-      setDiagnosticFeatures3(diagnosticFeatures3.filter((_, i) => i !== index));
-    }
-  };
-  const handleRemoveRowMatrix = (rowIndex, matrix) => {
-    if (matrix === "matrix1") {
-      const updatedMatrix1 = [...matrix1];
-      updatedMatrix1.splice(rowIndex, 1);
-      setMatrix1(updatedMatrix1);
-    } else {
-      const updatedMatrix2 = [...matrix2];
-      updatedMatrix2.splice(rowIndex, 1);
-      setMatrix2(updatedMatrix2);
-    }
-  };
-  const handleRemoveColumn = (columnIndex, matrix) => {
-    if (matrix === "matrix1") {
-      const updatedMatrix1 = matrix1.map((row) => {
-        const updatedRow = [...row];
-        updatedRow.splice(columnIndex, 1);
-        return updatedRow;
-      });
-      setMatrix1(updatedMatrix1);
-    } else {
-      const updatedMatrix2 = matrix2.map((row) => {
-        const updatedRow = [...row];
-        updatedRow.splice(columnIndex, 1);
-        return updatedRow;
-      });
-      setMatrix2(updatedMatrix2);
-    }
-  };
+
   const [selectedOption, setSelectedOption] = useState("create-new");
   const [equipmentName, setEquipmentName] = useState("");
   const [existingEquipment, setExistingEquipment] = useState([
@@ -288,7 +349,7 @@ const DataEntryPage = () => {
               </tr>
             </thead>
             <tbody>
-              {diagnosticFeatures.map((feature, index) => (
+              {diagnosticFeatures0.map((feature, index) => (
                 <tr key={feature.id}>
                   <td>{feature.id}</td>
                   <td>
@@ -296,7 +357,7 @@ const DataEntryPage = () => {
                       type="text"
                       value={feature.feature}
                       onChange={(e) =>
-                        handleFeatureChange(index, e.target.value, "table1")
+                        handleFeatureChange0(index, e.target.value, "table1")
                       }
                       list="diagnostic-options-1"
                       placeholder="Введите тип сбоя"
@@ -310,7 +371,7 @@ const DataEntryPage = () => {
                   <td>
                     <button
                       className="remove-row"
-                      onClick={() => handleRemoveRow(index, "table1")}
+                      onClick={() => handleRemoveF(index)}
                     >
                       &#10006;
                     </button>
@@ -321,7 +382,7 @@ const DataEntryPage = () => {
                 <td
                   colSpan="3"
                   className="add-row"
-                  onClick={() => handleAddRow("table1")}
+                  onClick={() => handleAddRow0()}
                 >
                   +
                 </td>
@@ -340,7 +401,7 @@ const DataEntryPage = () => {
               </tr>
             </thead>
             <tbody>
-              {diagnosticFeatures2.map((feature, index) => (
+              {diagnosticFeatures1.map((feature, index) => (
                 <tr key={feature.id}>
                   <td>{feature.id}</td>
                   <td>
@@ -348,7 +409,7 @@ const DataEntryPage = () => {
                       type="text"
                       value={feature.feature}
                       onChange={(e) =>
-                        handleFeatureChange2(index, e.target.value)
+                        handleFeatureChange1(index, e.target.value)
                       }
                       list="diagnostic-options-2"
                       placeholder="Введите причину сбоя"
@@ -362,7 +423,7 @@ const DataEntryPage = () => {
                   <td>
                     <button
                       className="remove-row"
-                      onClick={() => handleRemoveRow(index, "table2")}
+                      onClick={() => handleRemoveRC(index)}
                     >
                       &#10006;
                     </button>
@@ -370,7 +431,7 @@ const DataEntryPage = () => {
                 </tr>
               ))}
               <tr>
-                <td colSpan="3" className="add-row" onClick={handleAddRow2}>
+                <td colSpan="3" className="add-row" onClick={handleAddRow1}>
                   +
                 </td>
               </tr>
@@ -403,7 +464,7 @@ const DataEntryPage = () => {
               </tr>
             </thead>
             <tbody>
-              {diagnosticFeatures3.map((feature, index) => (
+              {diagnosticFeatures2.map((feature, index) => (
                 <tr key={feature.id}>
                   <td>{feature.id}</td>
                   <td>
@@ -411,13 +472,13 @@ const DataEntryPage = () => {
                       type="text"
                       value={feature.feature}
                       onChange={(e) =>
-                        handleFeatureChange3(index, e.target.value)
+                        handleFeatureChange2(index, e.target.value)
                       }
-                      list="diagnostic-options"
+                      list="diagnostic-options0"
                       placeholder="Введите диагностический признак"
                     />
-                    <datalist id="diagnostic-options">
-                      {diagnosticOptions.map((option) => (
+                    <datalist id="diagnostic-options0">
+                      {diagnosticOptions0.map((option) => (
                         <option key={option} value={option} />
                       ))}
                     </datalist>
@@ -425,7 +486,7 @@ const DataEntryPage = () => {
                   <td>
                     <button
                       className="remove-row"
-                      onClick={() => handleRemoveRow(index, "table3")}
+                      onClick={() => handleRemoveS(index)}
                     >
                       &#10006;
                     </button>
@@ -433,7 +494,7 @@ const DataEntryPage = () => {
                 </tr>
               ))}
               <tr>
-                <td colSpan="3" className="add-row" onClick={handleAddRow3}>
+                <td colSpan="3" className="add-row" onClick={handleAddRow2}>
                   +
                 </td>
               </tr>
@@ -448,12 +509,12 @@ const DataEntryPage = () => {
               <thead>
                 <tr>
                   <th></th>
-                  {matrix1[0].map((_, index) => (
+                  {matrix0[0].map((_, index) => (
                     <th key={index}>
-                      F{index + 1}
+                      F{index}
                       <button
                         className="remove-column"
-                        onClick={() => handleRemoveColumn(index, "matrix1")}
+                        onClick={() => handleRemoveF(index)}
                       >
                         &#10006;
                       </button>
@@ -462,15 +523,44 @@ const DataEntryPage = () => {
                 </tr>
               </thead>
               <tbody>
+                {matrix0.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    <th>
+                      F{rowIndex}
+                      <button
+                        className="remove-row"
+                        onClick={() => handleRemoveF(rowIndex)}
+                      >
+                        &#10006;
+                      </button>
+                    </th>
+                    {row.map((cell, columnIndex) => (
+                      <td key={columnIndex}>
+                        <input
+                          className="cell-input"
+                          type="text"
+                          value={cell}
+                          onChange={(e) =>
+                            handleFeatureChangeMatrix(
+                              rowIndex,
+                              columnIndex,
+                              e.target.value,
+                              "matrix0"
+                            )
+                          }
+                        ></input>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+
                 {matrix1.map((row, rowIndex) => (
                   <tr key={rowIndex}>
                     <th>
-                      RC{rowIndex + 1}
+                      RC{rowIndex}
                       <button
                         className="remove-row"
-                        onClick={() =>
-                          handleRemoveRowMatrix(rowIndex, "matrix1")
-                        }
+                        onClick={() => handleRemoveRC(rowIndex)}
                       >
                         &#10006;
                       </button>
@@ -494,38 +584,14 @@ const DataEntryPage = () => {
                     ))}
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="matrix">
-            <h2>Матрица 2</h2>
-            <table className="styled-table">
-              <thead>
-                <tr>
-                  <th></th>
-                  {matrix2[0].map((_, index) => (
-                    <th key={index}>
-                      F{index + 1}
-                      <button
-                        className="remove-column"
-                        onClick={() => handleRemoveColumn(index, "matrix2")}
-                      >
-                        &#10006;
-                      </button>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
+
                 {matrix2.map((row, rowIndex) => (
                   <tr key={rowIndex}>
                     <th>
-                      S{rowIndex + 1}
+                      S{rowIndex}
                       <button
                         className="remove-row"
-                        onClick={() =>
-                          handleRemoveRowMatrix(rowIndex, "matrix2")
-                        }
+                        onClick={() => handleRemoveS(rowIndex)}
                       >
                         &#10006;
                       </button>
